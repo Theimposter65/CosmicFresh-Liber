@@ -31,8 +31,8 @@ MAKE+=(
 
 # export environment variables
 export_env_vars() {
-    export KBUILD_BUILD_USER=Const
-    export KBUILD_BUILD_HOST=Coccinelle
+    export KBUILD_BUILD_USER=imposter
+    export KBUILD_BUILD_HOST=server2
     export ARCH=arm64
 
     # CCACHE
