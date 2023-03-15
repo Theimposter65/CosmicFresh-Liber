@@ -60,7 +60,7 @@ static char *charge_rate[] = {
 #define MIN_TEMP_C -20
 #define MAX_TEMP_C 60
 #define HYSTEREISIS_DEGC 2
-void mmi_chrg_rate_check(struct mmi_charger_manager *chg);
+static void mmi_chrg_rate_check(struct mmi_charger_manager *chg);
 bool mmi_find_temp_zone(struct mmi_charger_manager *chip, int temp_c, bool ignore_hysteresis_degc)
 {
 	int prev_zone, num_zones;
