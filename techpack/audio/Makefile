@@ -70,7 +70,10 @@ ifeq ($(CONFIG_LIBER_DTB), y)
 LINUXINCLUDE    += \
                 -include $(srctree)/techpack/audio/config/liberautoconf.h
 endif
-
+ifeq ($(CONFIG_ODESSA_DTB), y)
+LINUXINCLUDE    += \
+                -include $(srctree)/techpack/audio/config/odessaautoconf.h
+endif
 obj-y += soc/
 obj-y += dsp/
 obj-y += ipc/

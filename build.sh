@@ -10,6 +10,7 @@ RST='\033[0m'
 ORIGIN_DIR=$(pwd)
 TOOLCHAIN=$ORIGIN_DIR/build-shit
 IMAGE=$ORIGIN_DIR/out/arch/arm64/boot/Image.gz
+LOG=$ORIGIN_DIR/out/log.txt
 DEVICE=odessa
 CONFIG="${DEVICE}_defconfig"
 FP_MODEL="$*"
@@ -20,14 +21,13 @@ EGIS+=(
         -e CONFIG_FINGERPRINT_EGISTEC_FPS_MMI
 )
 MAKE+=(
-    -j$(($(nproc)+1)) \
+    -j6 \
         O=out \
         CROSS_COMPILE=aarch64-elf- \
         CROSS_COMPILE_ARM32=arm-eabi- \
         HOSTCC=gcc \
         HOSTCXX=aarch64-elf-g++ \
-        CC=aarch64-elf-gcc \
-        LD=ld.lld
+        CC=aarch64-elf-gcc
 )
 
 # export environment variables
@@ -85,7 +85,7 @@ build_kernel_image() {
     echo -e "${YELLOW}"
     script_echo "Building CosmicFresh Kernel For $DEVICE"
 
-    make "${MAKE[@]}" LOCALVERSION="—CosmicFresh-R$KV" $CONFIG 2>&1 | sed 's/^/     /'
+    make "${MAKE[@]}"|& tee "$LOG" LOCALVERSION="—CosmicFresh-R$KV" $CONFIG 2>&1 | sed 's/^/     /'
 
     echo -e "${GRN}"
     if [ "$FP_MODEL" = "EGIS" ]; then
@@ -95,7 +95,7 @@ build_kernel_image() {
     fi
     echo -e "${YELLOW}"
 
-    make "${MAKE[@]}" LOCALVERSION="—CosmicFresh-R$KV" 2>&1 | sed 's/^/     /'
+    make "${MAKE[@]}"|& tee "$LOG" LOCALVERSION="—CosmicFresh-R$KV" 2>&1 | sed 's/^/     /'
 
     make "${MAKE[@]}" dtbs dtbo.img 2>&1 | sed 's/^/     /'
 
