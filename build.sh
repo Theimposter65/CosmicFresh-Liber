@@ -85,7 +85,7 @@ build_kernel_image() {
     echo -e "${YELLOW}"
     script_echo "Building CosmicFresh Kernel For $DEVICE"
 
-    make "${MAKE[@]}"|& tee "$LOG" LOCALVERSION="—CosmicFresh-R$KV" $CONFIG 2>&1 | sed 's/^/     /'
+    make "${MAKE[@]}" LOCALVERSION="—CosmicFresh-R$KV" $CONFIG 2>&1 | sed 's/^/     /'
 
     echo -e "${GRN}"
     if [ "$FP_MODEL" = "EGIS" ]; then
@@ -95,7 +95,7 @@ build_kernel_image() {
     fi
     echo -e "${YELLOW}"
 
-    make "${MAKE[@]}"|& tee "$LOG" LOCALVERSION="—CosmicFresh-R$KV" 2>&1 | sed 's/^/     /'
+    make "${MAKE[@]}" LOCALVERSION="—CosmicFresh-R$KV" 2>&1 | sed 's/^/     /'
 
     make "${MAKE[@]}" dtbs dtbo.img 2>&1 | sed 's/^/     /'
 
