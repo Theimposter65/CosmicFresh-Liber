@@ -26,8 +26,7 @@ MAKE+=(
         CROSS_COMPILE_ARM32=arm-eabi- \
         HOSTCC=gcc \
         HOSTCXX=aarch64-elf-g++ \
-        CC=aarch64-elf-gcc \
-        LD=ld.lld
+        CC=aarch64-elf-gcc
 )
 
 # export environment variables
